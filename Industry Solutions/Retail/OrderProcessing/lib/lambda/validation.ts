@@ -45,6 +45,12 @@ export async function validateOrderWithBedrock(
 ): Promise<ValidationResult> {
     stepCtx.info('Validating order with Bedrock', { order });
 
+    // Simulate flakiness to demonstrate step retries
+    // ~50% chance of failure on each attempt
+    if (Math.random() < 0.5) {
+        throw new Error('Simulated transient failure for retry demonstration');
+    }
+
     // Check for missing fields
     const missingFields = checkMissingFields(order);
     if (missingFields.length > 0) {
