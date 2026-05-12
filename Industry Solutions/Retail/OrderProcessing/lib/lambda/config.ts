@@ -4,12 +4,13 @@
 
 /**
  * Bedrock model configuration
- * Default: Amazon Nova Lite in us-east-1
- * Override via environment variables for other regions/models
+ * Default: Amazon Nova Lite — us-east-1 은 파운데이션 ID, 그 외 리전은 CDK에서
+ * `apac.*` / `us.*` / `eu.*` 추론 프로필 ID를 BEDROCK_MODEL_ID 로 넣습니다.
+ * 수동 배포 시에는 해당 리전에 맞는 프로필 ID로 환경 변수를 덮어쓰세요.
  */
 export const BEDROCK_CONFIG = {
     modelId: process.env.BEDROCK_MODEL_ID || 'amazon.nova-lite-v1:0',
-    region: process.env.AWS_REGION || 'us-east-1',
+    region: process.env.BEDROCK_REGION || 'us-east-1',
     maxTokens: 100,
 } as const;
 

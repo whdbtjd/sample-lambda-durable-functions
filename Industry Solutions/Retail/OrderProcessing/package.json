@@ -9,6 +9,7 @@
         "watch": "tsc -w",
         "test": "jest --config jest.config.js",
         "test:cloud": "jest --config jest.cloud.config.js",
+        "demo-web": "npm --prefix demo-web run start",
         "cdk": "cdk"
     },
     "devDependencies": {

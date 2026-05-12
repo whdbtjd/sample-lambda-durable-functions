@@ -94,7 +94,6 @@ export class OrderProcessingStack extends cdk.Stack {
         effect: iam.Effect.ALLOW,
         actions: ['bedrock:InvokeModel'],
         resources: [
-          // Amazon Nova Lite foundation model
           `arn:aws:bedrock:*::foundation-model/amazon.nova-lite-v1:0`,
         ],
       })

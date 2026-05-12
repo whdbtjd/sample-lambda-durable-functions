@@ -13,12 +13,13 @@ const bedrockClient = new BedrockRuntimeClient({ region: BEDROCK_CONFIG.region }
  * Builds a validation prompt for Bedrock to check order completeness
  */
 export function buildValidationPrompt(order: Order): string {
-    return `You are a validator. Check if this order data is complete:
+    return `You are a data completeness checker. Check ONLY if the following fields are present (not empty or missing). Do NOT judge the format or value of the fields.
+
 Order ID: ${order.orderId || 'MISSING'}
 Customer ID: ${order.customerId || 'MISSING'}
 Amount: ${order.amount !== undefined ? order.amount : 'MISSING'}
 
-Respond with only "VALID" if all three fields are present and non-empty, or "INVALID: <reason>" if any are missing.`;
+Reply with exactly "VALID" if all three fields have any value, or "INVALID: <field name> is missing" if a field is empty or MISSING. Do not evaluate format.`;
 }
 
 /**
@@ -43,12 +44,6 @@ export async function validateOrderWithBedrock(
     stepCtx: DurableContextLogger<DurableLogger>
 ): Promise<ValidationResult> {
     stepCtx.info('Validating order with Bedrock', { order });
-
-    // Simulate flakiness to demonstrate step retries
-    // ~50% chance of failure on each attempt
-    if (Math.random() < 0.5) {
-        throw new Error('Simulated transient failure for retry demonstration');
-    }
 
     // Check for missing fields
     const missingFields = checkMissingFields(order);
