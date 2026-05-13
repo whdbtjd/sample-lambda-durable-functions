@@ -169,10 +169,10 @@
 
     /* Controls */
     .card-controls { display: none; border-top: 1px solid #e2e8f0; margin-top: 0.6rem; padding-top: 0.6rem; }
-    .step-card.active:hover .card-controls,
-    .step-card.done:hover   .card-controls,
-    .step-card.failed:hover .card-controls,
-    .step-card.always-open  .card-controls { display: block; }
+    .step-card.active  .card-controls,
+    .step-card.done    .card-controls,
+    .step-card.failed  .card-controls,
+    .step-card.always-open .card-controls { display: block; }
 
     .cp-label { display: block; font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .04em; margin: 0.4rem 0 0.18rem; }
     .cp-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 6px; border: 1.5px solid #cbd5e1; background: #f8fafc; font-size: 0.85rem; color: #1a202c; outline: none; transition: border-color .15s; }
@@ -616,6 +616,7 @@
         $('outStart').textContent = JSON.stringify(j, null, 2);
         if (j.durableExecutionArn) {
           $('execArn').value = j.durableExecutionArn;
+          advancePhase(2);
           addLog('✓ 주문 시작됨 — Durable ARN 수신', 'success');
           addLog('내부 자동 처리 진행 중… 완료 후 USER 2 카드에서 콜백 ID 조회', 'warn');
         } else {
